@@ -209,9 +209,14 @@ namespace TextEditor
         {
             if (keyData == (Keys.Control | Keys.Shift | Keys.E))
             {
-                Parser p = new Parser(textBox1.SelectedText);
-                textBox1.SelectedText = p.parse();
-                return true;
+                try {
+                    Parser p = new Parser(textBox1.SelectedText);
+                    textBox1.SelectedText = p.eval();
+                    return true;
+                }
+                catch(Exception e){
+                    var result = MessageBox.Show(e.Message, "Parsing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -268,7 +273,12 @@ namespace TextEditor
         {
 
         }
+        private void textBox1_SelectionChanged(Object sender, EventArgs e)
+        {
 
+            MessageBox.Show("You are in the RichTextBox.SelectionChanged event.");
+
+        }
 
     }
 }
