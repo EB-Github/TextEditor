@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace WindowsFormsApplication1
+namespace TextEditor
 {
-    public partial class Form1 : Form
+    public partial class TextEditorMainWindow : Form
     {
         private String currentFile = "";
         private Boolean savedChanges = true;
-        public Form1()
+        public TextEditorMainWindow()
         {
             InitializeComponent();
         }

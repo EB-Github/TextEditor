@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace TextEditor
 {
-    partial class Form1
+    partial class TextEditorMainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextEditorMainWindow));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.CutButton = new System.Windows.Forms.ToolStripButton();
