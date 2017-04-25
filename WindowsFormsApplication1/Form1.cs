@@ -156,21 +156,46 @@ namespace WindowsFormsApplication1
         /// <param name="e"></param>
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBox1.SelectedText);
-            textBox1.SelectedText = "";
+            if (textBox1.SelectedText != null || textBox1.SelectedText != "")
+            {
+                Clipboard.SetText(textBox1.SelectedText);
+                textBox1.SelectedText = "";
+            }
             return;
         }
 
         private void CutButton_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBox1.SelectedText);
-            textBox1.SelectedText = "";
+            if (textBox1.SelectedText != null || textBox1.SelectedText != "") 
+            {
+                Clipboard.SetText(textBox1.SelectedText);
+                textBox1.SelectedText = "";
+            }
             return;
         }
 
         private void CopyButton_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBox1.SelectedText);
+            if (textBox1.SelectedText != null || textBox1.SelectedText != "")
+            {
+                Clipboard.SetText(textBox1.SelectedText);
+            }
+            return;
+                
+        }
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pasteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
         /// <summary>
         /// When key is pressed, add * to title to notify the user that they have unsaved changes
@@ -180,7 +205,16 @@ namespace WindowsFormsApplication1
             savedChanges = false;
             setTitle();
         }
-
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.Shift | Keys.E))
+            {
+                Parser p = new Parser(textBox1.SelectedText);
+                textBox1.SelectedText = p.parse();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         public String getCurrentFile()
         {
             return currentFile;
@@ -199,18 +233,31 @@ namespace WindowsFormsApplication1
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (!savedChanges)
+            {
+                var result = MessageBox.Show("You have unsaved changes, are you sure you want to close this file?", "Unsaved Changes",
+                                     MessageBoxButtons.YesNoCancel,
+                                     MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    currentFile = "";
+                    savedChanges = true;
+                    textBox1.Text = "";
+                    setTitle();
+                }
+            }
+            else
+            {
+                currentFile = "";
+                savedChanges = true;
+                textBox1.Text = "";
+                setTitle();
+            }
         }
 
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
-        }
 
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -222,9 +269,6 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void pasteButton_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }
